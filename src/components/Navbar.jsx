@@ -1,6 +1,8 @@
 import React, { useRef, useEffect, useContext } from 'react';
 import mainLogo from '../assets/main-logo.png';
-import loginLogo from '../assets/logout.png';
+import loginLogo from '../assets/login.png';
+import logoutLogo from '../assets/logout.png';
+
 import { AuthContext } from "../provider/AuthProvider";
 import { Link, NavLink, useNavigate } from 'react-router-dom';
 import { ROUTES } from '../routes';
@@ -54,38 +56,45 @@ const Navbar = () => {
 
               <div className="navbar-end flex justify-center items-center">
 
-                {user && <span className="text-black mr-3">{user.displayName}</span>}
+                {user && <span className="text-black mr-3 hidden md:block">{user.displayName}</span>}
                 <div
                   tabIndex={0}
                   role="button"
                   className="btn btn-ghost btn-circle avatar mr-3"
                 >
-                  <div className="w-10 rounded-full">
+                  <div className="">
                     {/* <img alt="User" src={user?.photoURL} /> */}
-                    <img src={user?.photoURL} alt="" />
+                    <img src={user?.photoURL} alt="" className='w-10 rounded-full' />
                   </div>
                 </div>
 
                 {user ? (
-                  <span>
-                     <span className="lg:hidden bg-slate-400">
-                {/* For Mobile Device Show Only Icons */}
-                <img src={loginLogo} alt="" className='w-8 rounded-full' />
-              </span>
-              <span className="hidden">
-                  <button
-                    onClick={handleSignOut}
-                    className="btn btn-sm btn-outline btn-success text-md rounded-none"
-                  >
-                    Logout
-                  </button>
-                  </span>
+
+                  <span onClick={handleSignOut}>
+                     <span className="block md:hidden">
+                        {/* For Mobile Device Show Only Icons */}
+                        <img src={logoutLogo} alt="" className='w-16 cursor-pointer' />
+                      </span>
+                      <span className="hidden md:block">
+                    <button className="text-white bg-red-500 hover:bg-blue-800 focus:ring-4 focus:outline-none focus:ring-blue-300 font-medium rounded-lg text-sm px-4 py-2 text-center">
+                      Logout
+                    </button>
+                    </span>
                   </span>
                 ) : (
+
                   <Link to="/login">
-                    <button className="btn btn-sm btn-info text-md rounded-none">
-                      Login
-                    </button>
+                    <span>
+                      <span className="block md:hidden">
+                        {/* For Mobile Device Show Only Icons */}
+                        <img src={loginLogo} alt="" className='w-16' />
+                      </span>
+                      <span className="hidden md:block">
+                        <button className="text-white bg-[#CF500F] hover:bg-blue-800 focus:ring-4 focus:outline-none focus:ring-blue-300 font-medium rounded-lg text-sm px-4 py-2 text-center">
+                          Login
+                        </button>
+                      </span>
+                    </span>
                   </Link>
                 )}
               </div>
